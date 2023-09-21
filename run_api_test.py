@@ -1,3 +1,4 @@
+import argparse
 
 import requests as r
 from common.apitester import read_file_yaml, write_file_yaml
@@ -42,7 +43,9 @@ class TestSequence:
 
 
 if __name__ == '__main__':
-
-    test_seq = TestSequence("testdata.yml", req_names=[])
+    parser = argparse.ArgumentParser(prog="run_api_test")
+    parser.add_argument('filename')
+    args = parser.parse_args()
+    test_seq = TestSequence(args.filename, req_names=[])
     test_seq.run()
 
