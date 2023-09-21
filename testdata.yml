@@ -1,21 +1,23 @@
+
+sequences: [req1, req2]
+
 requests: {
-          req1:
-            { name: req1,
-              method: GET,
-              host: example.com,
-              path: "api/v1/resource1",
-              params: {},
-              data: {},
-              headers: {}},
-          req2:
-            { name: req2,
-              method: GET,
-              host: example.com,
-              path: "api/v1/resource2",
-              params: { },
-              data: { },
-              headers: { }
-            },
+    req1:
+      { name: req1,
+        method: GET,
+        host: https://httpbin.org/,
+        path: "get",
+        params: {},
+        data: {},
+        headers: {}},
+    req2:
+      { name: req2,
+        method: PUT,
+        host: https://httpbin.org/,
+        path: "put",
+        params: { },
+        data: { },
+        headers: { }}
 }
 
 
