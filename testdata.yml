@@ -1,0 +1,23 @@
+requests: {
+          req1:
+            { name: req1,
+              method: GET,
+              host: example.com,
+              path: "api/v1/resource1",
+              params: {},
+              data: {},
+              headers: {}},
+          req2:
+            { name: req2,
+              method: GET,
+              host: example.com,
+              path: "api/v1/resource2",
+              params: { },
+              data: { },
+              headers: { }
+            },
+}
+
+
+
+

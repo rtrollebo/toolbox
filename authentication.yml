@@ -1,0 +1,4 @@
+access_token: accesstoken
+expires_in: '3539'
+scope: scope
+token_type: Bearer
