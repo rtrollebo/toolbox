@@ -7,6 +7,7 @@ requests: {
         method: GET,
         host: https://httpbin.org/,
         path: "get",
+        pathParams: {},
         params: {},
         data: {},
         headers: {}},
@@ -15,6 +16,7 @@ requests: {
         method: PUT,
         host: https://httpbin.org/,
         path: "put",
+        pathParams: {},
         params: { },
         data: { },
         headers: { }}
