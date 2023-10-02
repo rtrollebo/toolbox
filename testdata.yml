@@ -1,6 +1,6 @@
 
 sequences: [req1, req2]
-
+authenticationRequest:
 requests: {
     req1:
       { name: req1,

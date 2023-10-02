@@ -13,12 +13,14 @@ class TestSequence:
         self.access_token = None
 
     def run(self):
-        self.auth_data = read_file_yaml("authentication.yml")
-        self.access_token = self.auth_data['access_token']
+        auth_request = self.testdata['authenticationRequest']
+        if auth_request is not None:
+            self.auth_data = read_file_yaml("authentication.yml")
+            self.access_token = self.auth_data['access_token']
         for req_name in self.req_names:
             res = self.send_request(req_name)
-            if res.status_code != 200:
-                auth_res = self.send_request('authenticateOauth')
+            if res.status_code != 200 and auth_request is not None:
+                auth_res = self.send_request(auth_request)
                 if auth_res.status_code == 200:
                     write_file_yaml("authentication.yml", auth_res.json())
                     self.testdata = read_file_yaml(self.testdata_filename)
@@ -28,9 +30,10 @@ class TestSequence:
             print(req_name + ' OK')
 
     def send_request(self, req_name):
+        auth_request = self.testdata['authenticationRequest']
         req = self.testdata['requests'][req_name]
         headers = req['headers']
-        if 'Authorization' not in headers:
+        if 'Authorization' not in headers and auth_request is not None:
             headers['Authorization'] = self.auth_data['token_type'] + ' ' + self.access_token
         response = r.request(
             req['method'],
