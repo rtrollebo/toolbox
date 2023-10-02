@@ -11,6 +11,7 @@ info:
 paths:
   "/put":
     put:
+      operationId: putRequestBasic
       responses:
         '200':
           description: The request's PUT parameters.
@@ -19,6 +20,7 @@ paths:
       - HTTP Methods
   "/post":
     post:
+      operationId: postRequestBasic
       responses:
         '200':
           description: The request's POST parameters.
@@ -27,6 +29,7 @@ paths:
       - HTTP Methods
   "/patch":
     patch:
+      operationId: patchRequestBasic
       responses:
         '200':
           description: The request's PATCH parameters.
@@ -35,6 +38,7 @@ paths:
       - HTTP Methods
   "/get":
     get:
+      operationId: getRequestBasic
       responses:
         '200':
           description: The request's query parameters.
@@ -43,6 +47,7 @@ paths:
       - HTTP Methods
   "/delete":
     delete:
+      operationId: deleteRequestBasic
       responses:
         '200':
           description: The request's DELETE parameters.
@@ -51,6 +56,7 @@ paths:
       - HTTP Methods
   "/anything/{anything}":
     delete:
+      operationId: deleteRequestAnything
       parameters:
       - in: path
         name: anything
@@ -64,6 +70,7 @@ paths:
       tags:
       - Anything
     get:
+      operationId: getRequestAnything
       parameters:
       - in: path
         name: anything
@@ -77,6 +84,7 @@ paths:
       tags:
       - Anything
     patch:
+      operationId: patchRequestAnything
       parameters:
       - in: path
         name: anything
@@ -90,6 +98,7 @@ paths:
       tags:
       - Anything
     post:
+      operationId: postRequestAnything
       parameters:
       - in: path
         name: anything
@@ -103,19 +112,7 @@ paths:
       tags:
       - Anything
     put:
-      parameters:
-      - in: path
-        name: anything
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Anything passed in request
-      summary: Returns anything passed in request data.
-      tags:
-      - Anything
-    trace:
+      operationId: putRequestAnything
       parameters:
       - in: path
         name: anything
