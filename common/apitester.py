@@ -1,4 +1,5 @@
 import re
+import sys
 import requests as r
 
 from common.io import read_file_yaml, write_file_yaml
@@ -26,8 +27,9 @@ class TestSequence:
                     self.testdata = read_file_yaml(self.testdata_filename)
                     self.access_token = auth_res.json()['access_token']
                 res = self.send_request(req_name)
-                assert res.status_code == 200
-            print(req_name + ' OK')
+            sys.stdout.write(str(res.status_code))
+            assert res.status_code == 200
+            sys.stdout.write(' '+req_name+' \tOK\n')
 
     def send_request(self, req_name):
         auth_request = self.testdata['authenticationRequest']
