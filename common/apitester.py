@@ -85,12 +85,22 @@ class ApiSpecificationOperation:
         self.server = server
 
     def get_path(self, path_data={}):
+        """
+        Generate full path with path param specification and data.
+        >>> SpecOp.get_path({'foo': 'bar'})
+        '/api/v1/resource/bar'
+        """
         if len(path_data) == 0:
             return self.path
         path_params = re.findall("\\{(.*?)\\}", self.path)
         for pp in path_params:
             self.path = self.path.replace("{"+pp+"}", str(path_data[pp]))
         return self.path
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(extraglobs={'SpecOp': ApiSpecificationOperation(None, '/api/v1/resource/{foo}', None, None, None, None, None)})
+
 
 
 
