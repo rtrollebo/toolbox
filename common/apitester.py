@@ -3,6 +3,7 @@ import sys
 import requests as r
 
 from common.io import read_file_yaml, write_file_yaml
+from common import exception
 
 
 class TestSequence:
@@ -64,8 +65,8 @@ def read_open_api(filename) -> ApiSpecification:
     for path in f['paths']:
         for method in f['paths'][path]:
             api_operation = f['paths'][path][method]
-            op = ApiSpecificationOperation(api_operation['operationId'], path, method, None, None,
-                                           api_operation['description'], None)
+            op = ApiSpecificationOperation(api_operation['operationId'], path, method, api_operation['parameters'],
+                                           None, api_operation['description'], None)
             operations.append(op)
     return ApiSpecification(operations)
 
@@ -84,22 +85,49 @@ class ApiSpecificationOperation:
         self.description = description
         self.server = server
 
+    @property
+    def header_parameters(self):
+        return self._extract_parameters('header')
+
+    @property
+    def query_parameters(self):
+        return self._extract_parameters('query')
+
+    @property
+    def path_parameters(self):
+        path_params_list = re.findall("\\{(.*?)\\}", self.path)
+        path_params = {}
+        for p in path_params_list:
+            path_params[p] = ""
+        return path_params
+
     def get_path(self, path_data={}):
         """
         Generate full path with path param specification and data.
-        >>> SpecOp.get_path({'foo': 'bar'})
-        '/api/v1/resource/bar'
+        >>> SpecOp.get_path({'foo1': 'bar1', 'foo2': 'bar2'})
+        '/api/v1/resource/bar1/bar2'
         """
         if len(path_data) == 0:
             return self.path
-        path_params = re.findall("\\{(.*?)\\}", self.path)
-        for pp in path_params:
-            self.path = self.path.replace("{"+pp+"}", str(path_data[pp]))
-        return self.path
+        full_path = str(self.path)
+        for pp in self.path_parameters.keys():
+            full_path = full_path.replace("{"+pp+"}", str(path_data[pp]))
+        return full_path
+
+    def _extract_parameters(self, param_type):
+        if param_type not in ('header', 'query'):
+            raise exception.APITesterOpenAPIException("Unknown parameter type")
+        params = {}
+        for p in self.parameters:
+            if p['in'] == param_type:
+                params[p['name']] = ""
+        return params
+
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(extraglobs={'SpecOp': ApiSpecificationOperation(None, '/api/v1/resource/{foo}', None, None, None, None, None)})
+    doctest.testmod(extraglobs={'SpecOp': ApiSpecificationOperation(None, '/api/v1/resource/{foo1}/{foo2}', None, None,
+                                                                    None, None, None)})
 
 
 
