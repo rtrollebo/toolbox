@@ -66,7 +66,7 @@ def read_open_api(filename) -> ApiSpecification:
         for method in f['paths'][path]:
             api_operation = f['paths'][path][method]
             op = ApiSpecificationOperation(api_operation['operationId'], path, method, api_operation['parameters'],
-                                           None, api_operation['description'], None)
+                                           None, api_operation['description'], None, api_operation['responses'])
             operations.append(op)
     return ApiSpecification(operations)
 
@@ -76,7 +76,7 @@ class ApiSpecificationOperation:
     """
     ApiSpecificationOperation
     """
-    def __init__(self, operation_id, path, method, parameters, request_body, description, server):
+    def __init__(self, operation_id, path, method, parameters, request_body, description, server, responses):
         self.operation_id = operation_id
         self.path = path
         self.method = method
@@ -84,6 +84,7 @@ class ApiSpecificationOperation:
         self.request_body = request_body
         self.description = description
         self.server = server
+        self.responses = responses
 
     @property
     def header_parameters(self):
@@ -94,6 +95,13 @@ class ApiSpecificationOperation:
         return self._extract_parameters('query')
 
     @property
+    def payload(self):
+        if self.method in ('PUT', 'POST'):
+            return '{"placeholder": null}'
+        else:
+            return None
+
+    @property
     def path_parameters(self):
         path_params_list = re.findall("\\{(.*?)\\}", self.path)
         path_params = {}
@@ -101,12 +109,21 @@ class ApiSpecificationOperation:
             path_params[p] = ""
         return path_params
 
-    def get_path(self, path_data={}):
+    def expect(self):
+        if self.method == 'GET':
+            # TODO: generate example response
+            pass
+        else:
+            return {'200': {}}
+
+    def get_path(self, path_data=None):
         """
         Generate full path with path param specification and data.
         >>> SpecOp.get_path({'foo1': 'bar1', 'foo2': 'bar2'})
         '/api/v1/resource/bar1/bar2'
         """
+        if path_data is None:
+            path_data = {}
         if len(path_data) == 0:
             return self.path
         full_path = str(self.path)
@@ -126,8 +143,19 @@ class ApiSpecificationOperation:
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(extraglobs={'SpecOp': ApiSpecificationOperation(None, '/api/v1/resource/{foo1}/{foo2}', None, None,
-                                                                    None, None, None)})
+    doctest.testmod(
+        extraglobs={
+            'SpecOp': ApiSpecificationOperation(
+                None,
+                '/api/v1/resource/{foo1}/{foo2}',
+                None,
+                None,
+                None,
+                None,
+                None,
+                {'200': {'content': {'application/json': {'schema': {'#ref': ''}}}}}
+            )
+        })
 
 
 
