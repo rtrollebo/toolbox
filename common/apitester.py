@@ -48,8 +48,21 @@ class TestSequence:
 
 
 class ApiSpecification:
+    """
+    # >>> operations = []
+    # >>> operations.append(ApiSpecificationOperation("id1", None, None, None, None, None, None, None))
+    # >>> api_spec = ApiSpecification(operations, None)
+    # >>> op = api_spec.operations[0]._api_specification
+    # >>> op == api_spec
+    # True
+
+    """
     def __init__(self, operations):
+        self.responses = None
         self.operations = operations
+        for op in self.operations:
+            op._api_specification = self
+
 
 
 def read_open_api(filename) -> ApiSpecification:
@@ -68,7 +81,7 @@ def read_open_api(filename) -> ApiSpecification:
             op = ApiSpecificationOperation(api_operation['operationId'], path, method, api_operation['parameters'],
                                            None, api_operation['description'], None, api_operation['responses'])
             operations.append(op)
-    return ApiSpecification(operations)
+    return ApiSpecification(operations, None)
 
 
 class ApiSpecificationOperation:
@@ -139,6 +152,9 @@ class ApiSpecificationOperation:
             if p['in'] == param_type:
                 params[p['name']] = ""
         return params
+
+    def _get_component_object(self, code=200):
+        return self.responses[str(code)]['application/json']['schema']['#ref'].split('/')[-1]
 
 
 if __name__ == '__main__':
