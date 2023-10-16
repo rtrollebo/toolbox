@@ -43,7 +43,8 @@ class TestSequence:
             req['host'] + get_path(req['path'], req['pathParams'], path_data=req['pathParams']),
             headers=headers,
             params=req['params'],
-            data=req['data'])
+            data=req['data'],
+            json=req['json'])
         return response
 
 
