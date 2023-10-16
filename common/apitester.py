@@ -40,7 +40,7 @@ class TestSequence:
             headers['Authorization'] = self.auth_data['token_type'] + ' ' + self.access_token
         response = r.request(
             req['method'],
-            req['host'] + req['path'],
+            req['host'] + get_path(req['path'], req['pathParams'], path_data=req['pathParams']),
             headers=headers,
             params=req['params'],
             data=req['data'])
@@ -132,17 +132,10 @@ class ApiSpecificationOperation:
     def get_path(self, path_data=None):
         """
         Generate full path with path param specification and data.
-        >>> SpecOp.get_path({'foo1': 'bar1', 'foo2': 'bar2'})
+        >>> SpecOp.get_path(path_data={'foo1': 'bar1', 'foo2': 'bar2'})
         '/api/v1/resource/bar1/bar2'
         """
-        if path_data is None:
-            path_data = {}
-        if len(path_data) == 0:
-            return self.path
-        full_path = str(self.path)
-        for pp in self.path_parameters.keys():
-            full_path = full_path.replace("{"+pp+"}", str(path_data[pp]))
-        return full_path
+        return get_path(self.path, self.path_parameters, path_data=path_data)
 
     def _extract_parameters(self, param_type):
         if param_type not in ('header', 'query'):
@@ -156,6 +149,18 @@ class ApiSpecificationOperation:
     def _get_component_object(self, code=200):
         return self.responses[str(code)]['application/json']['schema']['#ref'].split('/')[-1]
 
+def get_path(path, path_parameters, path_data=None):
+    """
+
+    """
+    if path_data is None:
+        path_data = {}
+    if len(path_data) == 0:
+        return path
+    full_path = str(path)
+    for pp in path_parameters.keys():
+        full_path = full_path.replace("{"+pp+"}", str(path_data[pp]))
+    return full_path
 
 if __name__ == '__main__':
     import doctest
