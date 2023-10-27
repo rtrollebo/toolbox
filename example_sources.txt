@@ -1,0 +1,11 @@
+
+
+List of example API specifications sources
+
+openapi_petstore.yaml (converted from json)
+source:
+https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.json
+
+openapi_simple.yaml
+source:
+https://www.postman.com/postman/workspace/httpbin/api/309c9e0e-c9ef-4eed-b680-f3b5d126c9f0/definition/7ca2d5a8-54e9-4dd0-8509-ca98656339eb/file/7ca2d5a8-54e9-4dd0-8509-ca98656339eb?version=7ef4948f-4e05-4ae2-a93a-6cae7e3ed0e5
