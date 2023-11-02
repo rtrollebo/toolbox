@@ -1,6 +1,6 @@
 import argparse
 
-from common.apitester import TestSequence
+from apitester.testsequence import TestSequence
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="run_api_test")
