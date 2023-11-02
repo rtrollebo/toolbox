@@ -54,12 +54,6 @@ class TestSequence:
 
 class ApiSpecification:
     """
-    # >>> operations = []
-    # >>> operations.append(ApiSpecificationOperation("id1", None, None, None, None, None, None, None))
-    # >>> api_spec = ApiSpecification(operations, None)
-    # >>> op = api_spec.operations[0]._api_specification
-    # >>> op == api_spec
-    # True
 
     """
     def __init__(self, operations, components):
@@ -68,6 +62,19 @@ class ApiSpecification:
         for op in self.operations:
             op._api_specification = self
         self.components = components
+
+    def get_component(self, component: str):
+        """
+
+        >>> api_spec = read_open_api('../openapi_petstore.yaml')
+        >>> c = api_spec.get_component('Pet')
+        >>> 'id' in c['properties']
+        True
+        >>> 'name' in c['properties']
+        True
+
+        """
+        return self.components['schemas'][component]
 
 
 
@@ -101,7 +108,7 @@ def read_open_api(filename) -> ApiSpecification:
                                            else None,
                                            None, api_operation['responses'])
             operations.append(op)
-    return ApiSpecification(operations, None)
+    return ApiSpecification(operations, f['components'])
 
 
 class ApiSpecificationOperation:
