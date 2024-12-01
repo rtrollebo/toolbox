@@ -3,3 +3,4 @@ pyYAML
 aiohttp
 asyncio
 argparse
+numpy==1.25.0
