@@ -1,5 +1,5 @@
 import yaml
-from apitester.exception import APITesterIOException
+from internal.exception import APITesterIOException
 
 
 def read_file_yaml(fname):

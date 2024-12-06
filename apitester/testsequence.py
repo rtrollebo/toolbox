@@ -2,8 +2,8 @@ import re
 import sys
 import requests as r
 
-from apitester.io import read_file_yaml, write_file_yaml
-from apitester import exception
+from internal.yml import read_file_yaml, write_file_yaml
+from internal import exception
 
 debug = False
 
