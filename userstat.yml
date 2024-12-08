@@ -1,0 +1,4 @@
+fileNameTemplate: data/userstat/data_{0}.txt
+sourceFormat: \[(([0-9]+)/(\S+)/([0-9]+):([0-9]+):([0-9]+):([0-9]+)) \+0200\] userstat userId=([0-9]+)
+entryKeys:
+  - userId

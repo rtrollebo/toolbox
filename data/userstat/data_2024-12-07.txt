@@ -1,0 +1,5 @@
+[07/Dec/2024:12:00:00 +0200] userId=1
+[07/Dec/2024:12:10:00 +0200] userstat userId=4
+[07/Dec/2024:12:20:00 +0200] userstat userId=2
+[07/Dec/2024:12:30:00 +0200] userstat userId=3
+[07/Dec/2024:12:40:00 +0200] userId=1
