@@ -66,7 +66,7 @@ class ApiSpecification:
     def get_component(self, component: str):
         """
 
-        >>> api_spec = read_open_api('../openapi_petstore.yaml')
+        >>> api_spec = read_open_api('../data/apitester/openapi_petstore.yaml')
         >>> c = api_spec.get_component('Pet')
         >>> 'id' in c['properties']
         True
@@ -86,7 +86,7 @@ def read_open_api(filename) -> ApiSpecification:
     :param filename:
     :return:
 
-    >>> api_spec_file = '../openapi_petstore.yaml'
+    >>> api_spec_file = '../data/apitester/openapi_petstore.yaml'
     >>> api_spec = read_open_api(api_spec_file)
     >>> len(api_spec.operations)
     3

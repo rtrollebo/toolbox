@@ -13,7 +13,7 @@ class TestUserStat(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.root_directory = get_root_directory()
-        cls.conf = read_file_yaml(str(TestUserStat.root_directory)+"/userstat.yml")
+        cls.conf = read_file_yaml(str(TestUserStat.root_directory)+"/data/userstat/userstat.yml")
 
     def test_user_stat(self):
         at_date = datetime.datetime(2024, 12, 9)
