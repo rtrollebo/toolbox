@@ -9,7 +9,7 @@ import platform
 from internal.io import read_file
 
 
-def add_param_to_stat(par: int, slots: dict) -> bool:
+def add_param_to_stat(par: int, slots: dict):
     if par not in slots:
         slots[par] = 1
     else:
@@ -55,13 +55,13 @@ def get_active_users(s, report: dict, with_timeslots=False, pattern="", entry_ke
         nlines = nlines + 1
     return report['users'], report['timeslots']
 
-def get_active_users_from_data_sources(data_sources: list, pattern="", entry_keys=None):
+def get_active_users_from_data_sources(data_sources: list, with_timeslots=False, pattern="", entry_keys=None):
     if entry_keys is None:
         entry_keys = ["userId"]
     active_users_report = {'users': {}, 'timeslots': {}}
     for file in data_sources:
         d = read_file(file)
-        get_active_users(str(d), active_users_report, with_timeslots=True, pattern=pattern, entry_keys=entry_keys)
+        get_active_users(str(d), active_users_report, with_timeslots=with_timeslots, pattern=pattern, entry_keys=entry_keys)
     return active_users_report
 
 def get_file_names(dt: datetime.datetime, root_dir ="", template="", days=7) -> list:
