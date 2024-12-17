@@ -3,6 +3,7 @@ import datetime
 from pathlib import Path
 
 from internal.yml import read_file_yaml
+from internal.io import get_root_directory
 from userstat.au import get_active_users_from_data_sources, get_file_names
 
 
@@ -12,7 +13,7 @@ class TestUserStat(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.root_directory = _get_root_directory()
+        cls.root_directory = get_root_directory()
         cls.conf = read_file_yaml(str(TestUserStat.root_directory)+"/data/userstat/userstat.yml")
 
     def test_user_stat_wau(self):
@@ -40,9 +41,6 @@ def create_report(dt: datetime.datetime, timeslots=False, days=1):
         pattern=TestUserStat.conf['sourceFormat'],
         entry_keys=TestUserStat.conf['entryKeys']
     )
-
-def _get_root_directory() -> Path:
-    return Path(__file__).parent.parent
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 def read_file(file, nbytes=None):
     """
     Read from file. Optionally the first nbytes from the file.
@@ -11,3 +13,6 @@ def read_file(file, nbytes=None):
         else:
             data = f.read()
     return data
+
+def get_root_directory() -> Path:
+    return Path(__file__).parent.parent
