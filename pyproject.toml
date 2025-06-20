@@ -5,13 +5,14 @@ requires-python = ">=3.12"
 description = "A set of tools for various tasks"
 readme = "readme.md"
 dependencies = [
-    "requests",
-    "pyYAML",
-    "aiohttp",
-    "asyncio",
-    "argparse",
+    "requests==2.32.4",
+    "pyYAML==6.0.2",
+    "aiohttp==3.12.13",
+    "asyncio==3.4.3",
+    "argparse==1.4.0",
     "numpy==1.26.0",
     "matplotlib==3.9.3",
-    "huggingface_hub",
-    "ipython"]
+    "huggingface_hub==0.33.0",
+    "ipython==9.3.0",
+]
 
