@@ -1,0 +1,17 @@
+[project]
+name = "toolbox"
+version = "1.0.0"
+requires-python = ">=3.12"
+description = "A set of tools for various tasks"
+readme = "readme.md"
+dependencies = [
+    "requests",
+    "pyYAML",
+    "aiohttp",
+    "asyncio",
+    "argparse",
+    "numpy==1.26.0",
+    "matplotlib==3.9.3",
+    "huggingface_hub",
+    "ipython"]
+

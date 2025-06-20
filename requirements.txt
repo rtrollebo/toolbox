@@ -1,7 +1,0 @@
-requests
-pyYAML
-aiohttp
-asyncio
-argparse
-numpy==1.26.0
-matplotlib==3.9.3
