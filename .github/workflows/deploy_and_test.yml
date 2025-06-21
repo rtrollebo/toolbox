@@ -1,26 +1,22 @@
-name: Python package
+name: ToolBox
 
 on: [push]
 
 jobs:
-  build:
+  toolbox_build_and_test:
+    name: python
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-
-      - name: "Set up Python"
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: "pyproject.toml"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Install project and dependencies
-        run: |
-          uv pip install .
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
 
       - name: Run tests
-        run: |
-          python run_api_test.py data/apitester/testdata.yml
-          python -m unittest discover
+        run: | 
+          uv run run_api_test.py data/apitester/testdata.yml
+          uv run -m unittest discover
