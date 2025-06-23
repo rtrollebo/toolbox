@@ -3,8 +3,10 @@ Module for generating active users statistics
 
 """
 import re
+from datetime import datetime as dt
 import datetime
 import platform
+import doctest
 
 from internal.io import read_file
 
@@ -45,7 +47,7 @@ def get_active_users(s, report: dict, with_timeslots=False, pattern="", entry_ke
             entry = {}
             for i, value in enumerate(entry_keys):
                 entry[value] = r[0][7+i]
-            entry['time'] = datetime.datetime(int(r[0][3]), to_month[r[0][2]], int(r[0][1]), hour, minute, second)
+            entry['time'] = datetime.datetime(int(r[0][3]), _to_month[r[0][2]], int(r[0][1]), hour, minute, second)
             if userid not in report['users']:
                 report['users'][userid] = [entry]
                 if with_timeslots:
@@ -79,18 +81,5 @@ def get_file_names(dt: datetime.datetime, root_dir ="", template="", days=7) -> 
     dts = [dt - datetime.timedelta(days=i) for i in range(0, days)]
     return [root_dir+template.format(i.date().isoformat()) for i in dts]
 
-to_month = {
-    'Jan': 1,
-    'Feb': 2,
-    'Mar' : 3,
-    'Apr': 4,
-    'Mai': 5,
-    'Jun': 6,
-    'Jul': 7,
-    'Aug':8,
-    'Sep':9,
-    'Oct':10,
-    'Nov':11,
-    'Dec':12}
-
-
+def _to_month(month_str):
+    return dt.strptime(month_str, '%b').month
