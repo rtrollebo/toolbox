@@ -47,7 +47,7 @@ def get_active_users(s, report: dict, with_timeslots=False, pattern="", entry_ke
             entry = {}
             for i, value in enumerate(entry_keys):
                 entry[value] = r[0][7+i]
-            entry['time'] = datetime.datetime(int(r[0][3]), _to_month[r[0][2]], int(r[0][1]), hour, minute, second)
+            entry['time'] = datetime.datetime(int(r[0][3]), _to_month(r[0][2]), int(r[0][1]), hour, minute, second)
             if userid not in report['users']:
                 report['users'][userid] = [entry]
                 if with_timeslots:
