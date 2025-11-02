@@ -13,9 +13,10 @@ class TestMlCore(unittest.TestCase):
     def tearDownClass(cls):
         pass
 
-    def test_ml_core(self):
+    def test_statistics_entropy(self):
         size = 7
         p = 1 / size
+        max_entropy = -np.log2(p) # expectation value E[I(x)] for uniform distribution
         array1 = np.array([p] * size)
         array2 = np.array(
             [0.10513192, 0.03125064, 0.2496782, 0.22240208, 0.20958976, 0.02310486, 0.15884255])
@@ -23,8 +24,8 @@ class TestMlCore(unittest.TestCase):
         self.assertAlmostEqual(np.sum(array2), 1.0, delta=1E-6)
         e1 = entropy(array1)
         e2 = entropy(array2)
-        self.assertAlmostEqual(e1, np.log2(size), delta=1E-6)
-        self.assertTrue((e2 < np.log2(size)) and (e2 > 0))
+        self.assertAlmostEqual(e1, max_entropy, delta=1E-6)
+        self.assertTrue((e2 < max_entropy) and (e2 > 0))
 
 
 if __name__ == '__main__':
