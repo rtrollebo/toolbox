@@ -1,6 +1,5 @@
 import unittest
 import datetime
-from pathlib import Path
 
 from internal.yml import read_file_yaml
 from internal.io import get_root_directory

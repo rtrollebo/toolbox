@@ -2,8 +2,8 @@ from pathlib import Path
 import os
 import unittest
 import numpy as np
-from nnet.architecture import Architecture, Network, Layer
-from nnet.operations import run
+from statistics.nnet.architecture import Architecture, Network, Layer
+from statistics.nnet.operations import run
 
 
 class TestNnet(unittest.TestCase):

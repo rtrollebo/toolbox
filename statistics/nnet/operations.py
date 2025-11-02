@@ -4,8 +4,8 @@ nnet operations module
 import doctest
 import numpy as np
 try:
-    from nnet.architecture import Architecture
-    from nnet.architecture import Network, Layer
+    from statistics.nnet.architecture import Architecture
+    from statistics.nnet.architecture import Network, Layer
 except ImportError:
     # For running temporary doctests
     from architecture import Architecture
